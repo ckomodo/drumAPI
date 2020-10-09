@@ -28,7 +28,14 @@ const drumSet = [
     }
 ]
 
-
+const stringSet = [
+    {
+    instrument: "guitar",
+    brand: "fender",
+    model: "sunny side up",
+    size: "18 inches"
+}
+]
 
 //sets up a route to the homepage. The "/" means localhost3030/ which is the homepage
 app.get("/", function (req, res) {
@@ -44,6 +51,20 @@ app.get("/api/drums", function (req, res) {
     
 });
 
+app.get("/api/strings", function(req, res){
+    return res.json(stringSet);
+})
+
+app.post("/api/strings", function(req, res){
+    const newStringSet = {
+        instrument: req.body.instrument,
+        brand: req.body.brand,
+        model: req.body.model,
+        size: req.body.size
+    }
+    stringSet.push(newStringSet);
+    res.json("fancy fingers")
+})
 
 app.post("/api/drums", function(req, res){
     // console.log(req.body); logs new object
@@ -55,7 +76,11 @@ app.post("/api/drums", function(req, res){
         buildYear: req.body.buildYear
     }
 
+    drumSet.push(newDrum);
 
+
+
+    res.json("got drums?") //something must be returned to complete the request response cycle
 
 })
 
